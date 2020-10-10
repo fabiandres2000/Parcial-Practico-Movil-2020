@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Registrar Asignatura"
+        android:id="@+id/rasignaturaFragment"
+        android:icon="@drawable/ic_baseline_create_new_folder_24"/>
+    <item android:title="Registrar Notas"
+        android:id="@+id/rnotaFragment"
+        android:icon="@drawable/ic_baseline_library_add_check_24"/>
+    <item android:title="Listar Asignaturas"
+        android:id="@+id/lasignaturaFragment"
+        android:icon="@drawable/ic_baseline_list_24"/>
+    <item android:title="Listar Notas"
+        android:id="@+id/lnotaFragment"
+        android:icon="@drawable/ic_baseline_playlist_add_check_24"/>
+</menu>

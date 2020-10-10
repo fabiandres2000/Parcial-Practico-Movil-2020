@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".GestionNotaFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="241dp"
+                android:layout_height="114dp"
+                android:src="@drawable/prueba" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registro de notas"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccione la asignatura:" />
+
+            <Spinner
+                android:id="@+id/spiner_asignatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#039BE5" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="13dp" />
+
+            <Button
+                android:id="@+id/mostrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8E24AA"
+                android:text="Registrar notas corte 1"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/oculto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Corte 1 (30%)"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/notacorte1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Nota"
+                        android:inputType="numberDecimal" />
+
+                    <EditText
+                        android:id="@+id/porcentajecorte1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="%"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/actividad1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Actividad"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/agregar_nota_corte1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1E88E5"
+                    android:text="agregar nota corte 1"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <TextView
+                    android:id="@+id/porcentaje_utilizado1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Porcentaje utilizado: 0"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/finalcorte1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="14dp" />
+
+            <Button
+                android:id="@+id/mostrar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8E24AA"
+                android:text="REGISTRAR NOTAS CORTE 2"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/oculto2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView81"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Corte 2 (30%)"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/notacorte2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Nota"
+                        android:inputType="numberDecimal" />
+
+                    <EditText
+                        android:id="@+id/porcentajecorte2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="%"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/actividad2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Actividad"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/agregar_nota_corte2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1E88E5"
+                    android:text="agregar nota corte 2"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <TextView
+                    android:id="@+id/porcentaje_utilizado2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Porcentaje utilizado: 0"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/finalcorte2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
+            <Button
+                android:id="@+id/mostrar3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8E24AA"
+                android:text="REGISTRAR NOTAS CORTE 3"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/oculto3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView82"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Corte 3 (40%)"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/notacorte3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Nota"
+                        android:inputType="numberDecimal" />
+
+                    <EditText
+                        android:id="@+id/porcentajecorte3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="%"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/actividad3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="Actividad"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/agregar_nota_corte3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#1E88E5"
+                    android:text="agregar nota corte 3"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <TextView
+                    android:id="@+id/porcentaje_utilizado3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Porcentaje utilizado: 0"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/finalcorte3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="26dp" />
+
+            <Button
+                android:id="@+id/guardar_nota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#7CB342"
+                android:text="Guardar"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="104dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

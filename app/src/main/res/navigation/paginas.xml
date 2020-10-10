@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/paginas"
+    app:startDestination="@id/rasignaturaFragment">
+
+    <fragment
+        android:id="@+id/rasignaturaFragment"
+        android:name="com.example.parcial_practico.GestionAsignaturaFragment"
+        android:label="fragment_rasignatura"
+        tools:layout="@layout/fragment_rasignatura" />
+    <fragment
+        android:id="@+id/rnotaFragment"
+        android:name="com.example.parcial_practico.GestionNotaFragment"
+        android:label="fragment_rnota"
+        tools:layout="@layout/fragment_rnota" />
+    <fragment
+        android:id="@+id/lnotaFragment"
+        android:name="com.example.parcial_practico.ListarNotaFragment"
+        android:label="fragment_lnota"
+        tools:layout="@layout/fragment_lnota" />
+    <fragment
+        android:id="@+id/lasignaturaFragment"
+        android:name="com.example.parcial_practico.ListarAsignaturaFragment"
+        android:label="fragment_lasignatura"
+        tools:layout="@layout/fragment_lasignatura" />
+</navigation>
