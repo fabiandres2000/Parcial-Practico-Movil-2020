@@ -1,7 +1,5 @@
 package com.example.parcial_practico;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import cn.pedant.SweetAlert.SweetAlertDialog;
