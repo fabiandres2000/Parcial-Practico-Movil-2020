@@ -3,7 +3,11 @@ package com.example.parcial_practico;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,6 +17,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -108,36 +121,81 @@ public class GestionAsignaturaFragment extends Fragment {
         return view;
     }
 
+    String respuesta;
     public  void guardarAsignatura(){
-        con = new databaseHelper(this.getContext(),"parcial",null,1);
-        SQLiteDatabase db = con.getWritableDatabase();
-        if (codigo.getText().toString().equals("")  ||  nombre.getText().toString().equals("")){
-            new SweetAlertDialog(this.getContext())
-                    .setTitleText("LLene todos los datos")
-                    .show();
-        }else{
-            ContentValues values = new ContentValues();
-            values.put("CODIGO",codigo.getText().toString());
-            values.put("NOMBRE",nombre.getText().toString());
-            Long id_resultado = db.insert("asignatura","NOMBRE",values);
-            new SweetAlertDialog(this.getContext())
-                    .setTitleText("Asignaturas registradas hasta la fecha: "+id_resultado)
-                    .show();
-        }
-        db.close();
+        dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialogo.setTitleText("Espere ...");
+        dialogo.setCancelable(true);
+        dialogo.show();
+
+        String url="https://parcial2movil.000webhostapp.com/guardar_asignatura.php?nombre="+nombre.getText().toString()+"&codigo="+codigo.getText().toString();
+        url = url.replace(" ","%20");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONArray json = response.optJSONArray("respuesta");
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = json.getJSONObject(0);
+                    respuesta = jsonObject.optString("res");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dialogo.hide();
+                new SweetAlertDialog(getContext())
+                        .setTitleText(respuesta)
+                        .show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText(error.toString())
+                        .show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        requestQueue.add(request);
     }
 
     public void actualizar_asignatura(){
-        con = new databaseHelper(this.getContext(),"parcial",null,1);
-        SQLiteDatabase db = con.getReadableDatabase();
-        String[] codigo_ = {codigo.getText().toString()};
+        dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialogo.setTitleText("Espere ...");
+        dialogo.setCancelable(true);
+        dialogo.show();
 
-        ContentValues values = new ContentValues();
-        values.put("NOMBRE",nombre.getText().toString());
-
-        db.update("asignatura",values,"CODIGO=?",codigo_);
-        Toast.makeText(this.getContext(),"Actualizado correctamente",Toast.LENGTH_LONG).show();
-        db.close();
+        String url="https://parcial2movil.000webhostapp.com/actualizar_asignatura.php?nombre="+nombre.getText().toString()+"&codigo="+codigo.getText().toString();
+        url = url.replace(" ","%20");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONArray json = response.optJSONArray("respuesta");
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = json.getJSONObject(0);
+                    respuesta = jsonObject.optString("res");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dialogo.hide();
+                new SweetAlertDialog(getContext())
+                        .setTitleText(respuesta)
+                        .show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText(error.toString())
+                        .show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        requestQueue.add(request);
     }
 
     public void borrar_asignatura(){
@@ -150,14 +208,41 @@ public class GestionAsignaturaFragment extends Fragment {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        SQLiteDatabase db = con.getReadableDatabase();
-                        String[] codigo_ = {codigo.getText().toString()};
+                        dialogo = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        dialogo.setTitleText("Espere ...");
+                        dialogo.setCancelable(true);
+                        dialogo.show();
 
-                        db.delete("asignatura","CODIGO=?",codigo_);
-                        Toast.makeText(getContext(),"Borrado correctamente",Toast.LENGTH_LONG).show();
-                        codigo.setText("");
-                        nombre.setText("");
-                        db.close();
+                        String url="https://parcial2movil.000webhostapp.com/borrar_asignatura.php?codigo="+codigo.getText().toString();
+                        url = url.replace(" ","%20");
+                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                JSONArray json = response.optJSONArray("respuesta");
+                                JSONObject jsonObject = null;
+                                try {
+                                    jsonObject = json.getJSONObject(0);
+                                    respuesta = jsonObject.optString("res");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                dialogo.hide();
+                                new SweetAlertDialog(getContext())
+                                        .setTitleText(respuesta)
+                                        .show();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Oops...")
+                                        .setContentText(error.toString())
+                                        .show();
+                            }
+                        });
+                        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                        requestQueue.add(request);
                     }
                 })
                 .setCancelButton("Calcelar", new SweetAlertDialog.OnSweetClickListener() {
@@ -169,24 +254,46 @@ public class GestionAsignaturaFragment extends Fragment {
                 .show();
     }
 
+    SweetAlertDialog dialogo;
+    JsonObjectRequest jsonObjectRequest;
     public void buscar(){
-        con = new databaseHelper(this.getContext(),"parcial",null,1);
-        SQLiteDatabase db = con.getReadableDatabase();
-        String[] campos ={"CODIGO","NOMBRE"};
-        String[] selector = {codigo.getText().toString()};
-        Cursor cursor = db.query("asignatura", campos, "CODIGO=?",selector,null,null,null);
-        cursor.moveToFirst();
-        try {
-            nombre.setText(cursor.getString(1));
-            codigo.setEnabled(false);
-        }catch (Exception e){
-            new SweetAlertDialog(this.getContext())
-                    .setTitleText("No existe ningun registro con ese codigo ")
-                    .show();
-            codigo.setText("");
-            nombre.setText("");
-        }
-        db.close();
+        dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialogo.setTitleText("Espere ...");
+        dialogo.setCancelable(true);
+        dialogo.show();
+
+        String url="https://parcial2movil.000webhostapp.com/buscar_asignatura.php?codigo="+codigo.getText().toString();
+        url = url.replace(" ","%20");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONArray json = response.optJSONArray("asignatura");
+                JSONObject jsonObject = null;
+                try {
+                        Asignatura asignatura = new Asignatura();
+                        jsonObject = json.getJSONObject(0);
+                        asignatura.setCodigo(jsonObject.optString("codigo"));
+                        asignatura.setNombre(jsonObject.optString("nombre"));
+                        nombre.setText(asignatura.getNombre());
+                        dialogo.hide();
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                    dialogo.hide();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText(error.toString())
+                        .show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        requestQueue.add(request);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.parcial_practico;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,15 +12,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ListarAsignaturaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListarAsignaturaFragment extends Fragment {
+public class ListarAsignaturaFragment extends Fragment implements  Response.Listener<JSONObject>,Response.ErrorListener  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,8 +77,9 @@ public class ListarAsignaturaFragment extends Fragment {
     }
     ListView lista;
     ArrayList<String> listaInformacion;
-    ArrayList<Asignatura> asignaturas;
     databaseHelper con;
+    SweetAlertDialog dialogo;
+    JsonObjectRequest jsonObjectRequest;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,37 +89,55 @@ public class ListarAsignaturaFragment extends Fragment {
         lista = view.findViewById(R.id.listaasignaturas);
         con = new databaseHelper(this.getContext(),"parcial",null,1);
 
-        consultarLista();
-
-        ArrayAdapter adaptador = new ArrayAdapter(this.getContext(),R.layout.asignaturalayout,listaInformacion);
-        lista.setAdapter(adaptador);
+        llenar_lista();
 
         return  view;
     }
+    private void llenar_lista() {
 
-    public void  consultarLista(){
-        SQLiteDatabase db = con.getReadableDatabase();
+        dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialogo.setTitleText("Espere ...");
+        dialogo.setCancelable(true);
+        dialogo.show();
 
-        Asignatura asignatura = null;
-
-        asignaturas = new ArrayList<Asignatura>();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM asignatura",null);
-
-        while (cursor.moveToNext()){
-            asignatura = new Asignatura();
-            asignatura.setCodigo(cursor.getString(1));
-            asignatura.setNombre(cursor.getString(2));
-            asignaturas.add(asignatura);
-        }
-        obtenerLista();
+        String url="https://parcial2movil.000webhostapp.com/listar_asignaturas.php";
+        url = url.replace(" ","%20");
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        requestQueue.add(jsonObjectRequest);
     }
 
-    public  void obtenerLista(){
-        listaInformacion = new ArrayList<String>();
 
-        for (int i = 0; i<asignaturas.size();i++){
-            listaInformacion.add("   Codigo: "+asignaturas.get(i).codigo+"\n"+"   Nombre: "+asignaturas.get(i).Nombre);
+
+
+    @Override
+    public void onResponse(JSONObject response) {
+        dialogo.hide();
+        JSONArray json = response.optJSONArray("asignatura");
+        JSONObject jsonObject = null;
+        ArrayList<String> asignaturas = new ArrayList<>();
+        try {
+            for (int i = 0;i<json.length(); i++ ){
+                Asignatura asignatura = new Asignatura();
+                jsonObject = json.getJSONObject(i);
+                asignatura.setCodigo(jsonObject.optString("codigo"));
+                asignatura.setNombre(jsonObject.optString("nombre"));
+                asignaturas.add("Codigo: "+asignatura.getCodigo()+"\n"+"Nombre: "+asignatura.getNombre());
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+            dialogo.hide();
         }
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this.getContext(), R.layout.asignaturalayout, asignaturas);
+        lista.setAdapter(adaptador);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "No se pudo conectar debido a:"+error.toString(), Toast.LENGTH_LONG).show();
+        dialogo.hide();
     }
 }

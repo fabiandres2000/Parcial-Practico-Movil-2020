@@ -3,6 +3,7 @@ package com.example.parcial_practico;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -129,9 +142,6 @@ public class GestionNotaFragment extends Fragment {
         con = new databaseHelper(this.getContext(),"parcial",null,1);
         llenarspinner();
 
-        ArrayAdapter adaptador = new ArrayAdapter(this.getContext(),R.layout.support_simple_spinner_dropdown_item,listaInformacion);
-        lista.setAdapter(adaptador);
-
         guardar_nota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,31 +201,61 @@ public class GestionNotaFragment extends Fragment {
     }
 
     public void  llenarspinner(){
-        SQLiteDatabase db = con.getReadableDatabase();
-        Asignatura asignatura = null;
+
         asignaturas = new ArrayList<Asignatura>();
-        Cursor cursor = db.rawQuery("SELECT * FROM asignatura",null);
+        dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialogo.setTitleText("Espere ...");
+        dialogo.setCancelable(true);
+        dialogo.show();
 
-        while (cursor.moveToNext()){
-            asignatura = new Asignatura();
-            asignatura.setCodigo(cursor.getString(1));
-            asignatura.setNombre(cursor.getString(2));
-            asignaturas.add(asignatura);
-        }
-        obtenerLista();
-        db.close();
+        String url="https://parcial2movil.000webhostapp.com/listar_asignaturas.php";
+        url = url.replace(" ","%20");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                JSONArray json = response.optJSONArray("asignatura");
+                JSONObject jsonObject = null;
+
+                try {
+                    //obtengo la lista de materias
+                    for (int i = 0;i<json.length(); i++ ){
+                        Asignatura asignatura = new Asignatura();
+                        jsonObject = json.getJSONObject(i);
+                        asignatura.setCodigo(jsonObject.optString("codigo"));
+                        asignatura.setNombre(jsonObject.optString("nombre"));
+                        asignaturas.add(asignatura);
+                    }
+
+                    //lleno lalista de strig para despues adaptarlo al spiner
+                    listaInformacion = new ArrayList<String>();
+                    for (int i = 0; i<asignaturas.size();i++){
+                        listaInformacion.add(asignaturas.get(i).Nombre);
+                    }
+
+                    //adapto la lista al spinner
+                    ArrayAdapter adaptador = new ArrayAdapter(getContext(),R.layout.support_simple_spinner_dropdown_item,listaInformacion);
+                    lista.setAdapter(adaptador);
+                    dialogo.hide();
+
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                    dialogo.hide();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                dialogo.hide();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        requestQueue.add(request);
+
     }
 
-    public  void obtenerLista(){
-        listaInformacion = new ArrayList<String>();
-        for (int i = 0; i<asignaturas.size();i++){
-            listaInformacion.add(asignaturas.get(i).Nombre);
-        }
-    }
-
-    public void calcularnota(){
-
-    }
 
     public void agregarnotacorte1(){
         double porcentaje_temporal = porcentaje_total1+Integer.parseInt(porcentaje1.getText().toString());
@@ -280,13 +320,14 @@ public class GestionNotaFragment extends Fragment {
         }
     }
 
+    SweetAlertDialog dialogo;
+    String respuesta;
+
     public void guardar_nota(){
 
         double notafinal = (definitiva_corte1*0.3+definitiva_corte2*0.3+definitiva_corte3*0.4);
         String asignatura = lista.getSelectedItem().toString();
         if (porcentaje_total1==100 && porcentaje_total2==100 && porcentaje_total3==100){
-            databaseHelper con = new databaseHelper(this.getContext(),"parcial",null,1);
-            SQLiteDatabase db = con.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put("ASIGNATURA",asignatura);
@@ -294,11 +335,43 @@ public class GestionNotaFragment extends Fragment {
             values.put("CORTE2",definitiva_corte2);
             values.put("CORTE3",definitiva_corte3);
             values.put("NOTA",notafinal);
-            Long id_resultado = db.insert("nota","ASIGNATURA",values);
 
-            new SweetAlertDialog(this.getContext()).setTitleText("Notas guardada correctamente!   Corte1: "+definitiva_corte1+"    ,corte2: "+
-                    definitiva_corte2+"   ,corte3: "+definitiva_corte3+"    ,definitiva: "+notafinal).show();
-            db.close();
+            dialogo = new SweetAlertDialog(this.getContext(), SweetAlertDialog.PROGRESS_TYPE);
+            dialogo.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+            dialogo.setTitleText("Espere ...");
+            dialogo.setCancelable(true);
+            dialogo.show();
+
+            String url="https://parcial2movil.000webhostapp.com/guardar_nota.php?asignatura="+asignatura+"&corte1="+definitiva_corte1+
+                    "&corte2="+definitiva_corte2+"&corte3="+definitiva_corte3+"&nota="+notafinal;
+            url = url.replace(" ","%20");
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    JSONArray json = response.optJSONArray("respuesta");
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = json.getJSONObject(0);
+                        respuesta = jsonObject.optString("res");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    dialogo.hide();
+                    new SweetAlertDialog(getContext())
+                            .setTitleText(respuesta)
+                            .show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Oops...")
+                                .setContentText(error.toString())
+                                .show();
+                    }
+                });
+                RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+                requestQueue.add(request);
             //reseteo valores
             porcentaje_total1=0;
             porcentaje_total2=0;
