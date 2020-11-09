@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#48D4E6"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -30,8 +31,10 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lista de Asignaturas"
-            android:textSize="24sp" />
+            android:text="Listado de Asignaturas"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <Space
             android:layout_width="match_parent"
@@ -44,14 +47,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:textColor="#FFFFFF">
 
                 <ListView
                     android:id="@+id/listaasignaturas"
                     android:layout_width="match_parent"
-                    android:layout_height="340dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="10.0sp" />
+                    android:layout_height="350dp"
+                    android:divider="#48D4E6"
+                    android:dividerHeight="10.0sp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#48D4E6"
     tools:context=".ListarNotaFragment">
 
     <LinearLayout
@@ -31,8 +32,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lista de notas"
-            android:textSize="24sp"
+            android:text="Listado de Notas"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -58,7 +60,7 @@
                 <ListView
                     android:id="@+id/lista_notas"
                     android:layout_width="match_parent"
-                    android:layout_height="360dp"
+                    android:layout_height="350dp"
                     android:divider="@android:color/transparent"
                     android:dividerHeight="10.0sp" />
             </LinearLayout>

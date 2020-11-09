@@ -149,14 +149,14 @@ public class ListarNotaFragment extends Fragment {
 
                 }catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                     dialogo.hide();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                 dialogo.hide();
             }
         });
@@ -171,7 +171,7 @@ public class ListarNotaFragment extends Fragment {
     public void eliminar(int pos){
         nota_eliminar = notas.get(pos);
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Esta seguro de que quiere eliminar la nota?")
+                .setTitleText("Está seguro de eliminar la nota?")
                 .setContentText("Asignatura: "+nota_eliminar.asignatura+", Notafinal: "+nota_eliminar.notafinal)
                 .setConfirmText("Eliminar!")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -214,7 +214,7 @@ public class ListarNotaFragment extends Fragment {
                          requestQueue.add(request);
                     }
                 })
-                .setCancelButton("Calcelar", new SweetAlertDialog.OnSweetClickListener() {
+                .setCancelButton("Cancelar", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#48D4E6"
     tools:context=".GestionAsignaturaFragment">
 
     <LinearLayout
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registro de Asignatura"
-            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <Space
@@ -53,7 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Codigo:" />
+                android:text="Código:"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/codigo"
@@ -61,14 +65,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF" />
 
             <Button
                 android:id="@+id/buscar_asig"
                 android:layout_width="67dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#1E88E5"
+                android:background="#018390"
+                android:shadowColor="#333333"
+                android:shadowDx="4"
+                android:shadowDy="6"
+                android:shadowRadius="10"
                 android:text="Buscar"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold" />
@@ -85,10 +94,12 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:layout_width="63dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre: " />
+                android:text="Nombre: "
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/nombre"
@@ -96,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="#FFFEFE" />
         </LinearLayout>
 
         <Space
@@ -112,7 +124,11 @@
                 android:id="@+id/guardar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:background="#7CB342"
+                android:background="#3ACF01"
+                android:shadowColor="#333333"
+                android:shadowDx="4"
+                android:shadowDy="6"
+                android:shadowRadius="10"
                 android:text="Guardar"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -128,10 +144,15 @@
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#1E88E5"
+                android:background="#018390"
+                android:shadowColor="#333333"
+                android:shadowDx="4"
+                android:shadowDy="6"
+                android:shadowRadius="10"
                 android:text="Actualizar"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Space
                 android:layout_width="24dp"
@@ -143,10 +164,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#D30C0C"
+                android:background="#F5111D"
+                android:shadowColor="#333333"
+                android:shadowDx="4"
+                android:shadowDy="6"
+                android:shadowRadius="10"
                 android:text="Borrar"
                 android:textColor="#FFFEFE"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

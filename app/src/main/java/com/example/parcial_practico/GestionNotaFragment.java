@@ -240,14 +240,14 @@ public class GestionNotaFragment extends Fragment {
 
                 }catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                     dialogo.hide();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                 dialogo.hide();
             }
         });
@@ -271,10 +271,10 @@ public class GestionNotaFragment extends Fragment {
                 utilizado1.setText("porcentaje utilizado : "+porcentaje_total1+"%");
                 fcorte1.setText("nota del corte1: "+definitiva_corte1);
             }else{
-                new SweetAlertDialog(this.getContext()).setTitleText("las notas deben de estar entre 0 y 5").show();
+                new SweetAlertDialog(this.getContext()).setTitleText("las notas deben estar entre 0 y 5").show();
             }
         }else{
-            new SweetAlertDialog(this.getContext()).setTitleText("no puede utilizar este porcentaje porque la sumatoria pasaria de 100%").show();
+            new SweetAlertDialog(this.getContext()).setTitleText("No puede utilizar este porcentaje debido a que la sumatoria pasaría de 100%").show();
         }
     }
 
@@ -292,10 +292,10 @@ public class GestionNotaFragment extends Fragment {
                 utilizado2.setText("porcentaje utilizado : "+porcentaje_total2+"%");
                 fcorte2.setText("nota del corte2: "+definitiva_corte2);
             }else{
-                new SweetAlertDialog(this.getContext()).setTitleText("las notas deben de estar entre 0 y 5").show();
+                new SweetAlertDialog(this.getContext()).setTitleText("Las notas deben estar entre 0 y 5").show();
             }
         }else{
-            new SweetAlertDialog(this.getContext()).setTitleText("no puede utilizar este porcentaje porque la sumatoria pasaria de 100%").show();
+            new SweetAlertDialog(this.getContext()).setTitleText("No puede utilizar este porcentaje debido a que la sumatoria pasaría de 100%").show();
         }
     }
 
@@ -313,10 +313,10 @@ public class GestionNotaFragment extends Fragment {
                 utilizado3.setText("porcentaje utilizado : "+porcentaje_total3+"%");
                 fcorte3.setText("nota del corte3: "+definitiva_corte3);
             }else{
-                new SweetAlertDialog(this.getContext()).setTitleText("las notas deben de estar entre 0 y 5").show();
+                new SweetAlertDialog(this.getContext()).setTitleText("Las notas deben estar entre 0 y 5").show();
             }
         }else{
-            new SweetAlertDialog(this.getContext()).setTitleText("no puede utilizar este porcentaje porque la sumatoria pasaria de 100%").show();
+            new SweetAlertDialog(this.getContext()).setTitleText("No puede utilizar este porcentaje debido a que la sumatoria pasaría de 100%").show();
         }
     }
 

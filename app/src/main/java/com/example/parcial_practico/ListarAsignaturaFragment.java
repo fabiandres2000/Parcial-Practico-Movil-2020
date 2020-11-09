@@ -127,7 +127,7 @@ public class ListarAsignaturaFragment extends Fragment implements  Response.List
             }
         }catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
             dialogo.hide();
         }
 

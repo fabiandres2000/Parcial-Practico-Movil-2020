@@ -201,8 +201,8 @@ public class GestionAsignaturaFragment extends Fragment {
     public void borrar_asignatura(){
         con = new databaseHelper(this.getContext(),"parcial",null,1);
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Esta seguro de que quiere eliminar la asignatura?")
-                .setContentText("no podra revertir esta accion!")
+                .setTitleText("Está seguro de eliminar la asignatura?")
+                .setContentText("no podra revertir esta acción!")
                 .setConfirmText("Eliminar!")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -279,7 +279,7 @@ public class GestionAsignaturaFragment extends Fragment {
                         dialogo.hide();
                 }catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "no se pudo establecer conexion", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No se pudo establecer conexión", Toast.LENGTH_LONG).show();
                     dialogo.hide();
                 }
             }
