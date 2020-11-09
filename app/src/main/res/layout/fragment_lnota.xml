@@ -32,7 +32,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Listado de Notas"
+            android:text="Lista de Notas"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold" />
