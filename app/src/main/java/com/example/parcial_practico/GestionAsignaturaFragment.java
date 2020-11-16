@@ -202,8 +202,8 @@ public class GestionAsignaturaFragment extends Fragment {
         con = new databaseHelper(this.getContext(),"parcial",null,1);
         new SweetAlertDialog(this.getContext(), SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Está seguro de eliminar la asignatura?")
-                .setContentText("no podra revertir esta acción!")
-                .setConfirmText("Eliminar!")
+                .setContentText("no podrá revertir esta acción!")
+                .setConfirmText("Eliminar! ")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
@@ -245,7 +245,7 @@ public class GestionAsignaturaFragment extends Fragment {
                         requestQueue.add(request);
                     }
                 })
-                .setCancelButton("Calcelar", new SweetAlertDialog.OnSweetClickListener() {
+                .setCancelButton("Cancelar ", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
