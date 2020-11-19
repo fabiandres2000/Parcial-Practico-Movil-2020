@@ -66,14 +66,15 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/buscar_asig"
                 android:layout_width="67dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#018390"
+                android:background="@drawable/btn_buscar_actualizar"
                 android:shadowColor="#333333"
                 android:shadowDx="4"
                 android:shadowDy="6"
@@ -108,7 +109,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:textColor="#FFFEFE" />
+                android:textColor="#FFFEFE"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <Space
@@ -124,7 +126,7 @@
                 android:id="@+id/guardar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:background="#3ACF01"
+                android:background="@drawable/btn_guardar"
                 android:shadowColor="#333333"
                 android:shadowDx="4"
                 android:shadowDy="6"
@@ -144,7 +146,7 @@
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#018390"
+                android:background="@drawable/btn_buscar_actualizar"
                 android:shadowColor="#333333"
                 android:shadowDx="4"
                 android:shadowDy="6"
@@ -164,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="#F5111D"
+                android:background="@drawable/btn_eliminar"
                 android:shadowColor="#333333"
                 android:shadowDx="4"
                 android:shadowDy="6"
